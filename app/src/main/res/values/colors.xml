@@ -5,4 +5,15 @@
     <color name="colorAccent">#FF4081</color>
     <color name="transparent">#ffffffff</color>
     <color name="circle_name_selector_color">#cccccc</color>
+    <color name="main_color">#3a62ac</color>
+    <color name="zone_textcolor_bg">#DDDDDD</color>
+
+    <color name="container_background">#EBEBEB</color>
+    <color name="primary_text_white">#deffffff</color>
+    <!--87%white-->
+    <color name="progress_bar_unfinished">#D4D4D4</color>
+
+    <color name="gray">#FFF0F0F0</color>
+    <color name="bg_white_gray">#f2f2f2</color>
+    <color name="light_gray">#808080</color>
 </resources>
