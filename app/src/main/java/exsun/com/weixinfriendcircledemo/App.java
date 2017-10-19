@@ -3,6 +3,8 @@ package exsun.com.weixinfriendcircledemo;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.stetho.Stetho;
+
 /**
  * @author xiaokun
  * @date 2017/10/17
@@ -17,5 +19,9 @@ public class App extends Application
     {
         super.onCreate();
         mContext = this;
+        if (BuildConfig.DEBUG)
+        {
+            Stetho.initializeWithDefaults(this);
+        }
     }
 }

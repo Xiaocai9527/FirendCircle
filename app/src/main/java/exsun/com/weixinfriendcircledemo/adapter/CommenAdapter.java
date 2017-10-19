@@ -75,6 +75,7 @@ public abstract class CommenAdapter<T>
     public void setDatas(List<T> datas)
     {
         mDatas = datas;
+        notifyDataSetChanged();
     }
 
     public List<T> getDatas()

@@ -61,6 +61,7 @@ public class FavortListAdapter extends CommenAdapter<FavortItem>
                 }
             }
         }
+        ((FavortListView) mListView2).setText(builder);
     }
 
     private SpannableString setClickableSpan(String textStr, int position)
@@ -78,7 +79,7 @@ public class FavortListAdapter extends CommenAdapter<FavortItem>
      */
     private SpannableString setImgSpan()
     {
-        String text = "";
+        String text = " ";
         SpannableString imgSpanText = new SpannableString(text);
         imgSpanText.setSpan(new ImageSpan(mContext, R.drawable.dianzansmal, DynamicDrawableSpan.ALIGN_BASELINE),
                 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -92,7 +92,7 @@ public class CommentListAdapter extends CommenAdapter<CommentItem>
         builder.append(content);
         textView.setText(builder);
 
-        return null;
+        return view;
     }
 
     private SpannableString setClickableSpan(String textStr, String userId, int position)

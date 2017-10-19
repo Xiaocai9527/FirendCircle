@@ -6,7 +6,7 @@
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#cccccc"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -45,7 +45,7 @@
             android:text="发单:10  接单:20"
             android:textColor="#7f7f7f"
             android:textSize="12sp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/timeTv"

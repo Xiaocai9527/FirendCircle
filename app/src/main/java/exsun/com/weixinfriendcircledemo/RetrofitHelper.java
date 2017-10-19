@@ -1,5 +1,6 @@
 package exsun.com.weixinfriendcircledemo;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -51,10 +52,16 @@ public class RetrofitHelper
     {
         if (okHttpClient == null)
         {
+            OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
             HttpLoggingInterceptor loggingInterceptor = getLoggingInterceptor(HttpLoggingInterceptor.Level.BASIC);
 //            Interceptor cacheInterceptor = getCacheInterceptor();
-            return new OkHttpClient().newBuilder()
-                    .addInterceptor(loggingInterceptor)
+            if (BuildConfig.DEBUG)
+            {
+                builder.addInterceptor(loggingInterceptor);
+                builder.addNetworkInterceptor(new StethoInterceptor());
+            }
+
+            return builder
 //                    .addNetworkInterceptor(cacheInterceptor)
 //                    .addInterceptor(cacheInterceptor)
                     .cache(cache)
