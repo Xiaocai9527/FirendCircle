@@ -16,6 +16,8 @@ import exsun.com.weixinfriendcircledemo.adapter.CommenAdapter;
 public class CommentListView extends LinearLayout
 {
     private CommenAdapter commenAdapter;
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     interface OnItemClickListener
     {
@@ -47,5 +49,17 @@ public class CommentListView extends LinearLayout
         this.commenAdapter = adapter;
         commenAdapter.bindListView(this);
     }
+
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        this.onItemClickListener = listener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener)
+    {
+        this.onItemLongClickListener = listener;
+    }
+
+//    public void
 
 }

@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import exsun.com.weixinfriendcircledemo.CircleMovementMethod;
-import exsun.com.weixinfriendcircledemo.NameClickable;
-import exsun.com.weixinfriendcircledemo.entity.CommentItem;
 import exsun.com.weixinfriendcircledemo.NameClickListener;
+import exsun.com.weixinfriendcircledemo.NameClickable;
 import exsun.com.weixinfriendcircledemo.R;
+import exsun.com.weixinfriendcircledemo.entity.CommentItem;
 
 /**
  * 评论列表适配器
@@ -59,17 +59,17 @@ public class CommentListAdapter extends CommenAdapter<CommentItem>
         }
     }
 
-    private View getView(int position)
+    private View getView(final int position)
     {
         View view = View.inflate(mContext, R.layout.item_social_comment, null);
         TextView textView = (TextView) view.findViewById(R.id.commentTv);
-        CircleMovementMethod circleMovementMethod = new CircleMovementMethod(R.color.circle_name_selector_color, R.color.circle_name_selector_color);
+        final CircleMovementMethod circleMovementMethod = new CircleMovementMethod(R.color.circle_name_selector_color, R.color.circle_name_selector_color);
         CommentItem commentItem = mDatas.get(position);
         //昵称
         String userNickname = commentItem.getUserNickname();
         //被回复人的昵称
         String toReplyName = "";
-        if (commentItem.getAppointUserid() != null)
+        if (!TextUtils.isEmpty(commentItem.getAppointUserid()))
         {
             toReplyName = commentItem.getAppointUserNickname();
         }
@@ -91,7 +91,35 @@ public class CommentListAdapter extends CommenAdapter<CommentItem>
         String content = commentItem.getContent();
         builder.append(content);
         textView.setText(builder);
+        textView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (circleMovementMethod.isPassToTv())
+                {
+//                    ((CommentListView)mListView).
+                    onItemClickListener.onItemClick(position);
+                }
+            }
+        });
 
+        textView.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                if (circleMovementMethod.isPassToTv())
+                {
+                    onItemLongClickListener.onItemLongClick(position);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        textView.setMovementMethod(circleMovementMethod);
         return view;
     }
 
@@ -101,6 +129,29 @@ public class CommentListAdapter extends CommenAdapter<CommentItem>
         spannableString.setSpan(new NameClickable(new NameClickListener(spannableString, userId), position),
                 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
+    }
+
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
+
+    interface OnItemClickListener
+    {
+        void onItemClick(int position);
+    }
+
+    interface OnItemLongClickListener
+    {
+        void onItemLongClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        this.onItemClickListener = listener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener)
+    {
+        this.onItemLongClickListener = listener;
     }
 
 }

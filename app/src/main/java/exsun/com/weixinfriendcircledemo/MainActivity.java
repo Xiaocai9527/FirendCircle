@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements ShowEditListener
         ButterKnife.bind(this);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         mCircleItems = new ArrayList<>();
         adapter = new HomeRecyclerViewAdapter(R.layout.item_circle_list, mCircleItems);
         adapter.setShowEditListener(this);
@@ -111,6 +110,11 @@ public class MainActivity extends AppCompatActivity implements ShowEditListener
         CommentItem commentItem = new CommentItem(mCommentConfig.getName(), mCommentConfig.getId(),
                 content, mCommentConfig.getPublishId(), "10000", "依迅");
         adapter.updateComentListView(commentItem, mCommentConfig.getCirclePosition());
+        //隐藏键盘
+        KeyBordUtil.hideSoftKeyboard(circleEt);
+        circleEt.setText("");
+        editTextBodyLl.setVisibility(View.GONE);
+        onShowEdit(View.GONE, null);
     }
 
     @Override

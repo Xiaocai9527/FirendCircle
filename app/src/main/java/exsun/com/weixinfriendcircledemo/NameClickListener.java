@@ -1,6 +1,7 @@
 package exsun.com.weixinfriendcircledemo;
 
 import android.text.SpannableString;
+import android.widget.Toast;
 
 /**
  * @author xiaokun
@@ -22,6 +23,6 @@ public class NameClickListener implements ISpanClick
     @Override
     public void onClick(int position)
     {
-
+        Toast.makeText(App.mContext, "触发NameClickListener类中onClick方法", Toast.LENGTH_SHORT).show();
     }
 }

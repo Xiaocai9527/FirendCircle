@@ -9,6 +9,7 @@ import android.text.style.ImageSpan;
 
 import java.util.List;
 
+import exsun.com.weixinfriendcircledemo.CircleMovementMethod;
 import exsun.com.weixinfriendcircledemo.NameClickable;
 import exsun.com.weixinfriendcircledemo.R;
 import exsun.com.weixinfriendcircledemo.entity.FavortItem;
@@ -62,6 +63,8 @@ public class FavortListAdapter extends CommenAdapter<FavortItem>
             }
         }
         ((FavortListView) mListView2).setText(builder);
+        //span能点击的关键方法
+        ((FavortListView) mListView2).setMovementMethod(new CircleMovementMethod(R.color.circle_name_selector_color));
     }
 
     private SpannableString setClickableSpan(String textStr, int position)
