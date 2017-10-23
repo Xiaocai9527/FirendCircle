@@ -68,6 +68,22 @@ public class MainActivity extends AppCompatActivity implements ShowEditListener
         recyclerView.setAdapter(adapter);
         //监听recyclerview滑动
         setViewTreeObserver();
+        recyclerView.setScrollingTouchSlop(16);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (Math.abs(dy) > 16)
+                {
+                    KeyBordUtil.hideSoftKeyboard(circleEt);
+                    onShowEdit(View.GONE, null);
+                }
+            }
+        });
+
         //加载数据
         loadData();
     }
@@ -113,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements ShowEditListener
         //隐藏键盘
         KeyBordUtil.hideSoftKeyboard(circleEt);
         circleEt.setText("");
-        editTextBodyLl.setVisibility(View.GONE);
-        onShowEdit(View.GONE, null);
+//        editTextBodyLl.setVisibility(View.GONE);
+        onShowEdit(View.GONE, null);//评论完成后，直接隐藏不要动画
     }
 
     @Override

@@ -9,8 +9,8 @@ import android.text.style.ImageSpan;
 
 import java.util.List;
 
-import exsun.com.weixinfriendcircledemo.CircleMovementMethod;
-import exsun.com.weixinfriendcircledemo.NameClickable;
+import exsun.com.weixinfriendcircledemo.spannable.CircleMovementMethod;
+import exsun.com.weixinfriendcircledemo.spannable.NameClickable;
 import exsun.com.weixinfriendcircledemo.R;
 import exsun.com.weixinfriendcircledemo.entity.FavortItem;
 import exsun.com.weixinfriendcircledemo.widget.FavortListView;

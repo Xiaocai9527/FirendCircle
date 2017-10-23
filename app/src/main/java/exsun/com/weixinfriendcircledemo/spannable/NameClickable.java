@@ -1,8 +1,12 @@
-package exsun.com.weixinfriendcircledemo;
+package exsun.com.weixinfriendcircledemo.spannable;
 
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
+
+import exsun.com.weixinfriendcircledemo.App;
+import exsun.com.weixinfriendcircledemo.R;
+import exsun.com.weixinfriendcircledemo.spannable.ISpanClick;
 
 /**
  * @author xiaokun

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-import exsun.com.weixinfriendcircledemo.ISpanClick;
+import exsun.com.weixinfriendcircledemo.spannable.ISpanClick;
 import exsun.com.weixinfriendcircledemo.adapter.FavortListAdapter;
 
 /**

@@ -1,7 +1,9 @@
-package exsun.com.weixinfriendcircledemo;
+package exsun.com.weixinfriendcircledemo.spannable;
 
 import android.text.SpannableString;
 import android.widget.Toast;
+
+import exsun.com.weixinfriendcircledemo.App;
 
 /**
  * @author xiaokun

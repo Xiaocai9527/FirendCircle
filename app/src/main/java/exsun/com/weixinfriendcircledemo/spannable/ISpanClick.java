@@ -1,4 +1,4 @@
-package exsun.com.weixinfriendcircledemo;
+package exsun.com.weixinfriendcircledemo.spannable;
 
 /**
  * @author xiaokun

@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import exsun.com.weixinfriendcircledemo.CircleMovementMethod;
-import exsun.com.weixinfriendcircledemo.NameClickListener;
-import exsun.com.weixinfriendcircledemo.NameClickable;
+import exsun.com.weixinfriendcircledemo.spannable.CircleMovementMethod;
+import exsun.com.weixinfriendcircledemo.spannable.NameClickListener;
+import exsun.com.weixinfriendcircledemo.spannable.NameClickable;
 import exsun.com.weixinfriendcircledemo.R;
 import exsun.com.weixinfriendcircledemo.entity.CommentItem;
 

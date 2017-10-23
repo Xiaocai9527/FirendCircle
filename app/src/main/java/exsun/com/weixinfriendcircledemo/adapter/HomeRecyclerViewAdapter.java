@@ -1,5 +1,7 @@
 package exsun.com.weixinfriendcircledemo.adapter;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,7 +18,7 @@ import com.facebook.stetho.common.LogUtil;
 
 import java.util.List;
 
-import exsun.com.weixinfriendcircledemo.ISpanClick;
+import exsun.com.weixinfriendcircledemo.spannable.ISpanClick;
 import exsun.com.weixinfriendcircledemo.R;
 import exsun.com.weixinfriendcircledemo.entity.CircleItem;
 import exsun.com.weixinfriendcircledemo.entity.CommentConfig;
@@ -35,8 +37,6 @@ import exsun.com.weixinfriendcircledemo.widget.FavortListView;
 
 public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseViewHolder>
 {
-
-    private CommentListAdapter commentListAdapter;
     /**
      * 评论实体类一一对应，防止错乱
      */
@@ -45,16 +45,75 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
      * 朋友圈实体类一一对应，防止错乱
      */
     private SparseArray<CircleItem> circleSpareArray = new SparseArray<>();
+    /**
+     * 评论view
+     */
     private CommentListView commentListView;
+    /**
+     * 评论view的adapter
+     */
+    private CommentListAdapter commentListAdapter;
+    /**
+     * 是否点赞标志位
+     */
+    private boolean favortFlag;
+    /**
+     * 是否评论标志位
+     */
+    private boolean commentFlag;
+    /**
+     * 默认并非第一次才有动画
+     */
+    private boolean isFirst;
+
+    private ShowEditListener mShowEditListener;
+
+    public interface ShowEditListener
+    {
+        void onShowEdit(int visible, CommentConfig commentConfig);
+    }
 
     public HomeRecyclerViewAdapter(@LayoutRes int layoutResId, @Nullable List<CircleItem> data)
     {
         super(layoutResId, data);
     }
 
+    /**
+     * 设置编辑接口
+     *
+     * @param showEditListener
+     */
+    public void setShowEditListener(ShowEditListener showEditListener)
+    {
+        this.mShowEditListener = showEditListener;
+    }
+
+    /**
+     * 设置是否一次性动画
+     *
+     * @param isFirst
+     */
+    public void setFirst(boolean isFirst)
+    {
+        this.isFirst = isFirst;
+    }
+
     @Override
     protected void convert(final BaseViewHolder helper, final CircleItem item)
     {
+
+        if (!isFirst && !favortFlag && !commentFlag)
+        {
+            LinearLayout llRoot = helper.getView(R.id.ll_root);
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(
+                    ObjectAnimator.ofFloat(llRoot, "scaleX", 0.1f, 1.0f),
+                    ObjectAnimator.ofFloat(llRoot, "scaleY", 0.1f, 1.0f));
+            set.setDuration(500).start();
+            favortFlag = false;
+            commentFlag = false;
+        }
+
         circleSpareArray.append(helper.getLayoutPosition(), item);
         ImageView avatar = helper.getView(R.id.headIv);
         TextView nickName = helper.getView(R.id.nameTv);
@@ -101,6 +160,7 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
         //有点赞
         if (hasFavort)
         {
+            //
             favortListView.setVisibility(View.VISIBLE);
             favortListView.setAdapter(favortListAdapter);
             favortListAdapter.setDatas(goodjobs);
@@ -125,6 +185,7 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
             @Override
             public void onClick(View v)
             {
+                favortFlag = true;
                 FavortItem item1 = new FavortItem();
                 item1.setPublishId(item.getId());
                 item1.setUserId(item.getUserId());
@@ -156,6 +217,7 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
             @Override
             public void onClick(View v)
             {
+                commentFlag = true;
                 CommentConfig config = new CommentConfig();
                 config.circlePosition = helper.getLayoutPosition();
                 config.commentType = CommentConfig.Type.PUBLIC;
@@ -173,6 +235,7 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
             @Override
             public void onClick(View v)
             {
+                commentFlag = true;
                 CommentConfig config = new CommentConfig();
                 config.circlePosition = helper.getLayoutPosition();
                 config.commentType = CommentConfig.Type.PUBLIC;
@@ -195,6 +258,7 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
                     Toast.makeText(mContext, "单击了自己的评论", Toast.LENGTH_SHORT).show();
                 } else
                 {//回复别人
+                    commentFlag = true;
                     CommentConfig config = new CommentConfig();
                     config.circlePosition = helper.getLayoutPosition();
                     config.commentType = CommentConfig.Type.REPLY;
@@ -219,18 +283,13 @@ public class HomeRecyclerViewAdapter extends BaseQuickAdapter<CircleItem, BaseVi
         });
     }
 
-    private ShowEditListener mShowEditListener;
 
-    public void setShowEditListener(ShowEditListener showEditListener)
-    {
-        this.mShowEditListener = showEditListener;
-    }
-
-    public interface ShowEditListener
-    {
-        void onShowEdit(int visible, CommentConfig commentConfig);
-    }
-
+    /**
+     * 更新评论区
+     *
+     * @param commentItem
+     * @param position
+     */
     public void updateComentListView(CommentItem commentItem, int position)
     {
         List<CommentItem> commentItems = listSparseArray.get(position);

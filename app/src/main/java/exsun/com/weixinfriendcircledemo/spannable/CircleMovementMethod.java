@@ -1,4 +1,4 @@
-package exsun.com.weixinfriendcircledemo;
+package exsun.com.weixinfriendcircledemo.spannable;
 
 import android.text.Layout;
 import android.text.Selection;
@@ -10,6 +10,9 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.view.MotionEvent;
 import android.widget.TextView;
+
+import exsun.com.weixinfriendcircledemo.App;
+import exsun.com.weixinfriendcircledemo.R;
 
 /**
  * @author xiaokun
