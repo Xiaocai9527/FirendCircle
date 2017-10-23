@@ -3,4 +3,4 @@
 
 
 
-![](gif\friendCircle.gif)
+![](gif/friendCircle.gif)
